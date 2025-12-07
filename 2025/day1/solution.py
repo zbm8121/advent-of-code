@@ -1,5 +1,5 @@
 def read_input():
-    with open('C:/Users/zbmach/Coding/advent-of-code/2025/day1/input.txt', 'r') as f:
+    with open('./2025/day1/input.txt', 'r') as f:
         for line in f:
             yield line.strip()
 

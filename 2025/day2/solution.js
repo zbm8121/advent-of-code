@@ -4,10 +4,7 @@ const fs = require("node:fs/promises");
  * @returns {Promise<string>}
  */
 function readInput() {
-  return fs.readFile(
-    "C:/Users/zbmach/Coding/advent-of-code/2025/day2/input.txt",
-    { encoding: "utf8" }
-  );
+  return fs.readFile("./2025/day2/input.txt", { encoding: "utf8" });
 }
 
 function part1(input) {
