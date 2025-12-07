@@ -1,4 +1,4 @@
-const fs = require("node:fs/promises");
+import fs from "node:fs/promises";
 
 /**
  * @returns {Promise<string>}
@@ -7,32 +7,12 @@ function readInput() {
   return fs.readFile("./2025/day2/input.txt", { encoding: "utf8" });
 }
 
-function part1(input) {
-  let sum = 0;
-
-  const ranges = input.split(",");
-  for (const range of ranges) {
-    const [start, end] = range.split("-").map(Number);
-
-    for (let i = start; i <= end; i++) {
-      const str = i.toString();
-      const len = str.length;
-      const twiceRepeated =
-        len % 2 === 0 ? str.slice(0, len / 2) === str.slice(len / 2) : false;
-
-      if (twiceRepeated) {
-        sum += i;
-      }
-    }
-  }
-
-  console.log("Part 1:", sum);
-}
-
-function checkMatchingSubstrings(str) {
+function checkMatchingSubstrings(str, fixedLength) {
   const len = str.length;
-  const subStringsToCheck = Math.floor(len / 2);
-  for (let i = subStringsToCheck; i > 0; i--) {
+  const subStringsToCheck = fixedLength || Math.floor(len / 2);
+
+  const minSubstr = fixedLength || 1;
+  for (let i = subStringsToCheck; i >= minSubstr; i--) {
     if (len % i !== 0) continue;
 
     let hasMatch = true;
@@ -52,6 +32,26 @@ function checkMatchingSubstrings(str) {
   }
 
   return false;
+}
+
+function part1(input) {
+  let sum = 0;
+
+  const ranges = input.split(",");
+  for (const range of ranges) {
+    const [start, end] = range.split("-").map(Number);
+
+    for (let i = start; i <= end; i++) {
+      const str = i.toString();
+      if (str.length % 2 !== 0) continue;
+
+      if (checkMatchingSubstrings(str, str.length / 2)) {
+        sum += i;
+      }
+    }
+  }
+
+  console.log("Part 1:", sum);
 }
 
 function part2(input) {
@@ -77,4 +77,4 @@ async function main() {
   part2(input);
 }
 
-main();
+await main();
