@@ -1,4 +1,4 @@
-string filePath = "./2025/day3/input.txt";
+string filePath = "./input.txt";
 
 string[] ReadInput()
 {
